@@ -318,16 +318,6 @@ The application uses SQLite with the following tables:
 
 This is a challenge submission project. For questions or issues, please contact [your contact info].
 
-## 📞 Support
 
-For technical issues or questions:
-- Open an issue on GitHub
-- Contact: [your email]
 
-## 🙏 Acknowledgments
-
-Built for [Challenge Name] to address agricultural worker rights and promote ethical farming practices.
-
----
-
-**Last Updated:** January 2025
+Built  to address agricultural worker rights and promote ethical farming practices.
