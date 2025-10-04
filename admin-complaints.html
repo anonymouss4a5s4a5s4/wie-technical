@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Complaints</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-dashboard-page">
+    <nav class="navbar navbar-custom">
+        <div class="container-fluid">
+            <button class="btn btn-light btn-sm" onclick="location.href='admin-dashboard.html'">← Back</button>
+            <span class="navbar-brand text-white">All Complaints</span>
+            <button class="btn btn-light btn-sm" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h2 class="text-white">Complaint Management</h2>
+            </div>
+            <div class="col-md-6">
+                <select class="form-select" id="filterStatus">
+                    <option value="all">All Status</option>
+                    <option value="New">New</option>
+                    <option value="In Review">In Review</option>
+                    <option value="Resolved">Resolved</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row g-4" id="adminComplaintsList">
+            <div class="col-12 text-center">
+                <div class="spinner-border text-light" role="status"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="api.js"></script>
+    <script>
+        if (!isLoggedIn() || getUserRole() !== 'admin') {
+            window.location.href = 'admin-login.html';
+        }
+
+        let allComplaints = [];
+
+        async function loadComplaints() {
+            try {
+                allComplaints = await API.getComplaints();
+                renderComplaints();
+            } catch (error) {
+                document.getElementById('adminComplaintsList').innerHTML = `
+                    <div class="col-12">
+                        <div class="alert alert-danger">Failed to load complaints: ${error.message}</div>
+                    </div>
+                `;
+            }
+        }
+
+        function renderComplaints(filter = 'all') {
+            const container = document.getElementById('adminComplaintsList');
+            container.innerHTML = '';
+            
+            let filtered = allComplaints;
+            if (filter !== 'all') {
+                filtered = allComplaints.filter(c => c.status === filter);
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="col-12"><p class="text-white text-center">No complaints found</p></div>';
+                return;
+            }
+
+            filtered.forEach(complaint => {
+                let statusClass = '';
+                if (complaint.status === 'New') statusClass = 'bg-danger';
+                else if (complaint.status === 'In Review') statusClass = 'bg-warning text-dark';
+                else statusClass = 'bg-success';
+
+                const date = new Date(complaint.created_at).toLocaleDateString();
+
+                container.innerHTML += `
+                    <div class="col-md-6">
+                        <div class="card complaint-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <h6 class="mb-0">${complaint.complaint_id}</h6>
+                                    <span class="badge ${statusClass}">${complaint.status}</span>
+                                </div>
+                                <p class="mb-2"><strong>Category:</strong> <span class="badge bg-secondary">${complaint.category}</span></p>
+                                <p class="mb-2"><strong>Subject:</strong> ${complaint.subject}</p>
+                                <p class="mb-2"><strong>Description:</strong> ${complaint.description}</p>
+                                <p class="mb-3 text-muted small"><strong>Date:</strong> ${date}</p>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-sm btn-primary" onclick="updateStatus('${complaint.complaint_id}', 'In Review')">Mark In Review</button>
+                                    <button class="btn btn-sm btn-success" onclick="updateStatus('${complaint.complaint_id}', 'Resolved')">Resolve</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        async function updateStatus(complaintId, status) {
+            try {
+                await API.updateComplaintStatus(complaintId, status);
+                await loadComplaints();
+            } catch (error) {
+                alert('Failed to update status: ' + error.message);
+            }
+        }
+
+        document.getElementById('filterStatus').addEventListener('change', (e) => {
+            renderComplaints(e.target.value);
+        });
+
+        loadComplaints();
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Complaints</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="farmer-dashboard-page">
+    <nav class="navbar navbar-custom">
+        <div class="container-fluid">
+            <button class="btn btn-light btn-sm" onclick="location.href='farmer-dashboard.html'">← Back</button>
+            <span class="navbar-brand text-white">Complaints Overview</span>
+            <button class="btn btn-light btn-sm" onclick="location.href='index.html'">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="text-white">Anonymous Complaints</h2>
+                <p class="text-white-50">Review feedback from workers</p>
+            </div>
+        </div>
+
+        <div class="row g-4" id="complaintsList">
+            <!-- Complaints loaded here -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        const complaints = [
+            { id: 'CPL-001', category: 'Transportation', subject: 'Vehicle Overcrowding', date: '2025-01-15', status: 'New' },
+            { id: 'CPL-002', category: 'Safety', subject: 'Lack of Protective Equipment', date: '2025-01-10', status: 'In Review' },
+            { id: 'CPL-003', category: 'Wages', subject: 'Late Payment', date: '2025-01-05', status: 'Resolved' },
+            { id: 'CPL-004', category: 'Working Conditions', subject: 'No Rest Breaks', date: '2024-12-28', status: 'Resolved' }
+        ];
+
+        $(document).ready(function() {
+            complaints.forEach(complaint => {
+                let statusClass = '';
+                if (complaint.status === 'New') statusClass = 'bg-danger';
+                else if (complaint.status === 'In Review') statusClass = 'bg-warning text-dark';
+                else statusClass = 'bg-success';
+
+                $('#complaintsList').append(`
+                    <div class="col-md-6">
+                        <div class="card complaint-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h6 class="mb-0">${complaint.id}</h6>
+                                    <span class="badge ${statusClass}">${complaint.status}</span>
+                                </div>
+                                <p class="mb-2"><strong>Category:</strong> ${complaint.category}</p>
+                                <p class="mb-2"><strong>Subject:</strong> ${complaint.subject}</p>
+                                <p class="mb-0 text-muted small"><strong>Date:</strong> ${complaint.date}</p>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            });
+        });
+    </script>
+</body>
+</html>

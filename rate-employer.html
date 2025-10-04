@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Employer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="worker-dashboard-page">
+    <nav class="navbar navbar-custom">
+        <div class="container-fluid">
+            <button class="btn btn-light btn-sm" onclick="location.href='worker-dashboard.html'">← Back</button>
+            <span class="navbar-brand text-white">Rate Your Employer</span>
+            <button class="btn btn-light btn-sm" onclick="location.href='index.html'">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h3 class="mb-4">Rate Your Experience</h3>
+                        <form id="ratingForm">
+                            <div class="mb-4">
+                                <label class="form-label">Select Employer</label>
+                                <select class="form-select" id="employer" required>
+                                    <option value="">Choose...</option>
+                                    <option value="ahmed">Ahmed Ben Salem - Green Valley Farm</option>
+                                    <option value="fatima">Fatima Khelifi - Sunrise Orchards</option>
+                                    <option value="mohamed">Mohamed Trabelsi - Olive Grove Estate</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label d-flex align-items-center">
+                                    <i class="bi bi-bus-front me-2 text-primary"></i>
+                                    Transportation Safety
+                                </label>
+                                <div class="star-rating" data-category="transport">
+                                    <i class="bi bi-star fs-2"></i>
+                                    <i class="bi bi-star fs-2"></i>
+                                    <i class="bi bi-star fs-2"></i>
+                                    <i class="bi bi-star fs-2"></i>
+                                    <i class="bi bi-star fs-2"></i>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label d-flex align-items-center">
+                                    <i class="bi bi-shield-check me-2 text-success"></i>
+                                    Working Conditions
+                                </label>
+                                <div class="star-rating" data-category="conditions">
+                                    <i class="bi bi-star fs-2"></i>
+                                    <i class="bi bi-star fs-2"></i>
+                                    <i class="bi bi-star fs-2"></i>
+                                    <i class="bi bi-star fs-2"></i>
+                                    <i class="bi bi-star fs-2"></i>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label d-flex align-items-center">
+                                    <i class="bi bi-tools me-2 text-warning"></i>
+                                    Equipment & Safety Gear
+                                </label>
+                                <div class="star-rating" data-category="equipment">
+                                    <i class="bi bi-star fs-2"></i>
+                                    <i class="bi bi-star fs-2"></i>
+                                    <i class="bi bi-star fs-2"></i>
+                                    <i class="bi bi-star fs-2"></i>
+                                    <i class="bi bi-star fs-2"></i>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label d-flex align-items-center">
+                                    <i class="bi bi-cash-coin me-2 text-info"></i>
+                                    Fair Wages & Payment
+                                </label>
+                                <div class="star-rating" data-category="wages">
+                                    <i class="bi bi-star fs-2"></i>
+                                    <i class="bi bi-star fs-2"></i>
+                                    <i class="bi bi-star fs-2"></i>
+                                    <i class="bi bi-star fs-2"></i>
+                                    <i class="bi bi-star fs-2"></i>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">Additional Comments (Optional)</label>
+                                <textarea class="form-control" rows="4" placeholder="Share more about your experience..."></textarea>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">Submit Rating</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const ratings = { transport: 0, conditions: 0, equipment: 0, wages: 0 };
+
+        document.querySelectorAll('.star-rating').forEach(container => {
+            const stars = container.querySelectorAll('i');
+            const category = container.dataset.category;
+            
+            stars.forEach((star, index) => {
+                star.addEventListener('click', () => {
+                    ratings[category] = index + 1;
+                    stars.forEach((s, i) => {
+                        s.className = i <= index ? 'bi bi-star-fill fs-2 text-warning' : 'bi bi-star fs-2';
+                    });
+                });
+            });
+        });
+
+        document.getElementById('ratingForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const allRated = Object.values(ratings).every(r => r > 0);
+            if (!allRated) {
+                alert('Please rate all categories');
+                return;
+            }
+            alert('Thank you! Your rating has been submitted.');
+            setTimeout(() => location.href = 'worker-dashboard.html', 1500);
+        });
+    </script>
+</body>
+</html>

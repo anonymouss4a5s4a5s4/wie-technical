@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Complaints</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="worker-dashboard-page">
+    <nav class="navbar navbar-custom">
+        <div class="container-fluid">
+            <button class="btn btn-light btn-sm" onclick="location.href='worker-dashboard.html'">← Back</button>
+            <span class="navbar-brand text-white">My Complaints</span>
+            <button class="btn btn-light btn-sm" onclick="location.href='index.html'">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="text-white">Track Your Complaints</h2>
+                <p class="text-white-50">View status of your submitted complaints</p>
+            </div>
+        </div>
+
+        <div class="row g-4" id="myComplaintsList">
+            <!-- Will be populated with worker's complaints -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h6 class="mb-0">CPL-5847</h6>
+                            <span class="badge bg-warning text-dark">In Review</span>
+                        </div>
+                        <p class="mb-2"><strong>Category:</strong> <span class="badge bg-secondary">Transportation</span></p>
+                        <p class="mb-2"><strong>Subject:</strong> Vehicle Overcrowding</p>
+                        <p class="mb-3 text-muted small"><strong>Submitted:</strong> 2025-01-20</p>
+                        <div class="alert alert-info mb-0 small">
+                            <i class="bi bi-info-circle"></i> Your complaint is being reviewed by administrators
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h6 class="mb-0">CPL-5723</h6>
+                            <span class="badge bg-success">Resolved</span>
+                        </div>
+                        <p class="mb-2"><strong>Category:</strong> <span class="badge bg-secondary">Safety</span></p>
+                        <p class="mb-2"><strong>Subject:</strong> Missing Safety Equipment</p>
+                        <p class="mb-3 text-muted small"><strong>Submitted:</strong> 2025-01-10</p>
+                        <div class="alert alert-success mb-0 small">
+                            <i class="bi bi-check-circle"></i> Resolved - Safety equipment has been provided
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="bi bi-clipboard-check display-4 text-muted mb-3"></i>
+                        <p class="text-muted">Need to report a new issue?</p>
+                        <button class="btn btn-primary" onclick="location.href='submit-complaint.html'">
+                            Submit New Complaint
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

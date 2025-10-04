@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Complaint</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="worker-dashboard-page">
+    <nav class="navbar navbar-custom">
+        <div class="container-fluid">
+            <button class="btn btn-light btn-sm" onclick="location.href='worker-dashboard.html'">← Back</button>
+            <span class="navbar-brand text-white">Submit Complaint</span>
+            <button class="btn btn-light btn-sm" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h3 class="mb-4">Submit Anonymous Complaint</h3>
+                        <form id="complaintForm">
+                            <div class="mb-3">
+                                <label class="form-label">Complaint Category</label>
+                                <select class="form-select" id="category" required>
+                                    <option value="">Select category...</option>
+                                    <option value="wages">Wage Issues</option>
+                                    <option value="safety">Safety Concerns</option>
+                                    <option value="transportation">Transportation</option>
+                                    <option value="harassment">Harassment</option>
+                                    <option value="working_conditions">Working Conditions</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Subject</label>
+                                <input type="text" class="form-control" id="subject" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Describe Your Complaint</label>
+                                <textarea class="form-control" id="description" rows="6" required></textarea>
+                            </div>
+                            <div id="successMsg" class="alert alert-success d-none"></div>
+                            <div id="errorMsg" class="alert alert-danger d-none"></div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">Submit Complaint</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="api.js"></script>
+    <script>
+        if (!isLoggedIn()) {
+            window.location.href = 'index.html';
+        }
+
+        document.getElementById('complaintForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const category = document.getElementById('category').value;
+            const subject = document.getElementById('subject').value;
+            const description = document.getElementById('description').value;
+            const submitBtn = document.getElementById('submitBtn');
+            const successMsg = document.getElementById('successMsg');
+            const errorMsg = document.getElementById('errorMsg');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Submitting...';
+            successMsg.classList.add('d-none');
+            errorMsg.classList.add('d-none');
+            
+            try {
+                const result = await API.createComplaint(category, subject, description);
+                
+                successMsg.textContent = `Complaint submitted successfully! Your complaint ID: ${result.complaint_id}`;
+                successMsg.classList.remove('d-none');
+                
+                document.getElementById('complaintForm').reset();
+                
+                setTimeout(() => {
+                    window.location.href = 'worker-dashboard.html';
+                }, 2000);
+            } catch (error) {
+                errorMsg.textContent = error.message;
+                errorMsg.classList.remove('d-none');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Submit Complaint';
+            }
+        });
+    </script>
+</body>
+</html>

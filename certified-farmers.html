@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certified Farmers</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="worker-dashboard-page">
+    <nav class="navbar navbar-custom">
+        <div class="container-fluid">
+            <button class="btn btn-light btn-sm" onclick="location.href='worker-dashboard.html'">← Back</button>
+            <span class="navbar-brand text-white">Certified Farmers</span>
+            <button class="btn btn-light btn-sm" onclick="location.href='index.html'">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="text-white">Responsible Farmers - Gold Certified</h2>
+                <p class="text-white-50">These farmers have been verified for ethical practices</p>
+            </div>
+        </div>
+
+        <div class="row g-4" id="farmersList">
+            <!-- Farmers will be loaded here -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        const farmers = [
+            { name: 'Ahmed Ben Salem', cert: 'CERT-2025-001', status: 'Active', rating: 4.8 },
+            { name: 'Fatima Khelifi', cert: 'CERT-2025-002', status: 'Active', rating: 4.9 },
+            { name: 'Mohamed Trabelsi', cert: 'CERT-2025-003', status: 'Active', rating: 4.7 },
+            { name: 'Leila Mansour', cert: 'CERT-2025-004', status: 'Active', rating: 4.6 }
+        ];
+
+        $(document).ready(function() {
+            farmers.forEach(farmer => {
+                const stars = '★'.repeat(Math.floor(farmer.rating)) + '☆'.repeat(5 - Math.floor(farmer.rating));
+                $('#farmersList').append(`
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card farmer-card h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="farmer-avatar">
+                                        <i class="bi bi-person-circle display-4"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h5 class="mb-0">${farmer.name}</h5>
+                                        <span class="badge bg-success">${farmer.status}</span>
+                                    </div>
+                                </div>
+                                <p class="mb-2"><strong>Cert #:</strong> ${farmer.cert}</p>
+                                <p class="mb-2"><strong>Rating:</strong> <span class="text-warning">${stars}</span> ${farmer.rating}</p>
+                                <button class="btn btn-primary btn-sm w-100 mt-2" onclick="location.href='qr-verification.html?cert=${farmer.cert}'">View QR Certificate</button>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            });
+        });
+    </script>
+</body>
+</html>

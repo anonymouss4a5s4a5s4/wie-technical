@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Worker Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        .navbar-custom { background-color: #5a6b4d; padding: 15px 20px; }
+        .navbar-toggler { border: none; padding: 4px 8px; }
+        .navbar-toggler-icon { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); }
+        .hero-section { position: relative; height: 400px; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), #b8c9ad; display: flex; align-items: center; justify-content: center; }
+        .hero-text { color: white; text-align: center; font-size: 2.5rem; font-weight: 300; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .stats-section { background: linear-gradient(180deg, #8b754a 0%, #9a8456 100%); padding: 60px 0; }
+        .stat-box { text-align: center; color: white; margin-bottom: 40px; }
+        .stat-number { font-size: 3.5rem; font-weight: 300; margin-bottom: 10px; }
+        .stat-label { font-size: 0.95rem; font-weight: 400; }
+        .stat-divider { width: 120px; height: 2px; background: white; margin: 0 auto 15px; }
+        .stat-title { font-size: 2rem; margin-bottom: 10px; font-weight: 400; }
+        .login-section { background-color: #6b7c5e; padding: 80px 0; }
+        .login-form { max-width: 600px; margin: 0 auto; }
+        .form-label-custom { color: white; font-size: 1.1rem; display: flex; align-items: center; margin-bottom: 10px; }
+        .icon-user, .icon-lock { width: 35px; height: 35px; margin-right: 15px; background: white; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
+        .form-control-custom { height: 50px; border: none; margin-bottom: 25px; }
+        .btn-login { background-color: #8a9478; color: white; border: none; padding: 12px 50px; font-size: 1rem; margin-top: 20px; }
+        .btn-login:hover { background-color: #7a8468; color: white; }
+        .bottom-section { background-color: #5a6b4d; padding: 60px 0 80px; }
+        .section-title { color: white; font-size: 1.5rem; margin-bottom: 30px; display: flex; align-items: center; }
+        .icon-box { width: 60px; height: 60px; margin-right: 20px; }
+        .complaints-box { background-color: #6b7c5e; padding: 20px; border: 2px solid white; min-height: 200px; }
+        .complaint-header { color: white; font-size: 0.9rem; margin-bottom: 10px; }
+        .complaint-text { color: white; font-size: 0.85rem; line-height: 1.4; }
+        .certificate-link { color: white; text-decoration: underline; font-size: 1.1rem; display: block; margin-top: 20px; }
+        .certificate-link:hover { color: #fff; }
+        .page-2 { display: none; }
+        .selection-section { background-color: #6b7c5e; padding: 60px 0; }
+        .page-title { color: white; font-size: 2.5rem; margin-bottom: 50px; }
+        .card-item { background: transparent; border: 3px solid white; border-radius: 10px; padding: 30px; margin-bottom: 30px; display: flex; align-items: center; }
+        .card-icon { width: 80px; height: 80px; flex-shrink: 0; }
+        .card-content { flex-grow: 1; margin-left: 20px; }
+        .star-badge { width: 50px; height: 50px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .rating-section { background-color: #6b7c5e; padding: 60px 0; }
+        .rating-title { color: white; font-size: 2rem; margin-bottom: 40px; }
+        .rating-item { display: flex; align-items: center; margin-bottom: 30px; }
+        .rating-icon { width: 60px; height: 60px; margin-right: 30px; flex-shrink: 0; }
+        .stars { display: flex; gap: 10px; }
+        .star { width: 40px; height: 40px; }
+        .detail-section { background-color: #6b7c5e; padding: 60px 0; }
+        .detail-title { color: white; font-size: 2rem; margin-bottom: 30px; }
+        .form-control-detail { border: none; margin-bottom: 20px; padding: 12px; }
+        textarea.form-control-detail { min-height: 150px; }
+        .btn-send { background-color: #d9d9d9; color: #333; border: none; padding: 12px 60px; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+    <div class="page-1">
+        <nav class="navbar navbar-custom">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- HERO SECTION with farm background -->
+<div class="hero-section"
+     style="
+        position: relative;
+        height: 400px;
+        background:
+          linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+          url('pexels-equalstock-20344344.jpg')
+          center/cover no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+     ">
+    <h1 class="hero-text" style="
+        color: white;
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 300;
+        text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+     ">
+        100% Verified Forced Labour free Product
+    </h1>
+</div>
+
+
+
+        <div class="stats-section"
+     style="
+        background:
+          linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+          url('https://images.unsplash.com/photo-1563201515-adbe35c669c5?auto=format&fit=crop&w=1600&q=80')
+          center/cover no-repeat;
+        padding: 60px 0;
+        color: white;
+     ">
+    <div class="container">
+        <h2 style="font-size: 2.5rem; font-weight: 500; margin-bottom: 50px; text-shadow: 2px 2px 6px rgba(0,0,0,0.5);">
+            Empowering Women in Agriculture
+        </h2>
+
+        <div class="row justify-content-center g-4">
+            <div class="col-md-3 col-sm-6">
+                <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 30px 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+                    <h3 style="font-size: 2rem; font-weight: 600; margin-bottom: 10px;">We Help</h3>
+                    <p style="font-size: 1.2rem; opacity: 0.9;">Women Farmers</p>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+                <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 30px 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+                    <h3 style="font-size: 2rem; font-weight: 600; margin-bottom: 10px;">$5 / Day</h3>
+                    <p style="font-size: 1.2rem; opacity: 0.9;">Average Wage</p>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+                <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 30px 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+                    <h3 style="font-size: 2rem; font-weight: 600; margin-bottom: 10px;">$973M</h3>
+                    <p style="font-size: 1.2rem; opacity: 0.9;">Income Generated</p>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+                <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 30px 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+                    <h3 style="font-size: 2rem; font-weight: 600; margin-bottom: 10px;">30</h3>
+                    <p style="font-size: 1.2rem; opacity: 0.9;">Women per Vehicle</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-4 mx-auto">
+                <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 25px 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+                    <h3 style="font-size: 2rem; font-weight: 600; margin-bottom: 10px;">12%</h3>
+                    <p style="font-size: 1.2rem; opacity: 0.9;">Mortality Rate</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <div class="login-section">
+            <div class="container">
+                <div class="login-form">
+                    <div class="mb-4">
+                        <label class="form-label-custom">
+                            <span class="icon-user">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <circle cx="12" cy="8" r="4" stroke="#6b7c5e" stroke-width="2"/>
+                                    <path d="M4 20c0-4.418 3.582-8 8-8s8 3.582 8 8" stroke="#6b7c5e" stroke-width="2"/>
+                                </svg>
+                            </span>
+                            Login
+                        </label>
+                        <input type="text" class="form-control form-control-custom">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label-custom">
+                            <span class="icon-lock">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <rect x="6" y="10" width="12" height="10" rx="2" stroke="#6b7c5e" stroke-width="2"/>
+                                    <path d="M9 10V7c0-1.657 1.343-3 3-3s3 1.343 3 3v3" stroke="#6b7c5e" stroke-width="2"/>
+                                </svg>
+                            </span>
+                            Password
+                        </label>
+                        <input type="password" class="form-control form-control-custom">
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-login" onclick="showPage2()">Log In</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="section-title">
+                            <svg class="icon-box" viewBox="0 0 60 60" fill="none">
+                                <rect x="8" y="12" width="44" height="40" rx="2" stroke="white" stroke-width="2.5"/>
+                                <path d="M8 18h44M18 12v-6M42 12v-6" stroke="white" stroke-width="2.5"/>
+                                <circle cx="18" cy="28" r="2.5" fill="white"/>
+                                <circle cx="18" cy="38" r="2.5" fill="white"/>
+                                <line x1="24" y1="28" x2="48" y2="28" stroke="white" stroke-width="2.5"/>
+                                <line x1="24" y1="38" x2="48" y2="38" stroke="white" stroke-width="2.5"/>
+                            </svg>
+                            Complaints
+                        </h3>
+                        <div class="complaints-box">
+                            <div class="complaint-header">
+                                <strong>Date</strong><br>
+                                <strong>Subject</strong>
+                            </div>
+                            <div class="complaint-text
